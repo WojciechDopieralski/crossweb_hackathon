@@ -6,9 +6,59 @@ output: html_notebook
 
 
 ```{r packages}
-
 library(rvest)
-library()
+library(tidyverse)
+library(stringr)
+```
+
+
+```{r page_download}
+
+url <- "https://crossweb.pl/wydarzenia//"
+
+
+crossweb_page<- read_html(url)
+
+```
+
+
+```{r scrap}
+daty <- crossweb_page %>%
+        html_nodes(".first.clearfix .num.fl") %>%
+        html_text()
+
+dzien <- crossweb_page %>%
+         html_nodes(".first.clearfix .name.fl") %>%
+         html_text()
+
+
+nazwy <- crossweb_page %>%
+         html_nodes(".colTab.title") %>%
+         html_text(trim = TRUE) %>%
+         gsub("  .*","", .) %>%
+         str_replace_all('"',"")
+         
+
+
+miasto <- crossweb_page %>%
+          html_nodes(".colTab.city") %>%
+          html_text(trim = T)
+
+
+typ <- crossweb_page %>%
+       html_nodes(".colTab.type") %>%
+       html_text(trim = T)
+
+
+koszt <- crossweb_page %>%
+         html_nodes(".colTab.cost") %>%
+         html_text(trim = T)
+```
+
+
+```{r df}
+
+
 
 
 ```

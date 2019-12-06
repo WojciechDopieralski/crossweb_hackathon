@@ -1751,17 +1751,55 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5saWJyYXJ5KHJ2ZXN0KVxubGlicmFyeSgpXG5cblxuYGBgIn0= -->
-<pre class="r"><code>
-library(rvest)
-library()
-</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0eSA8LSBjcm9zc3dlYl9wYWdlICU+JVxuICAgICAgICBodG1sX25vZGVzKFwiLmZpcnN0LmNsZWFyZml4IC5udW0uZmxcIikgJT4lXG4gICAgICAgIGh0bWxfdGV4dCgpXG5cbmR6aWVuIDwtIGNyb3Nzd2ViX3BhZ2UgJT4lXG4gICAgICAgICBodG1sX25vZGVzKFwiLmZpcnN0LmNsZWFyZml4IC5uYW1lLmZsXCIpICU+JVxuICAgICAgICAgaHRtbF90ZXh0KClcblxuXG5uYXp3eSA8LSBjcm9zc3dlYl9wYWdlICU+JVxuICAgICAgICAgaHRtbF9ub2RlcyhcIi5jb2xUYWIudGl0bGVcIikgJT4lXG4gICAgICAgICBodG1sX3RleHQodHJpbSA9IFRSVUUpICU+JVxuICAgICAgICAgZ3N1YihcIiAgLipcIixcIlwiLCAuKSAlPiVcbiAgICAgICAgIHN0cl9yZXBsYWNlX2FsbCgnXCInLFwiXCIpXG4gICAgICAgICBcblxuXG5taWFzdG8gPC0gY3Jvc3N3ZWJfcGFnZSAlPiVcbiAgICAgICAgICBodG1sX25vZGVzKFwiLmNvbFRhYi5jaXR5XCIpICU+JVxuICAgICAgICAgIGh0bWxfdGV4dCh0cmltID0gVClcblxuXG50eXAgPC0gY3Jvc3N3ZWJfcGFnZSAlPiVcbiAgICAgICBodG1sX25vZGVzKFwiLmNvbFRhYi50eXBlXCIpICU+JVxuICAgICAgIGh0bWxfdGV4dCh0cmltID0gVClcblxuXG5rb3N6dCA8LSBjcm9zc3dlYl9wYWdlICU+JVxuICAgICAgICAgaHRtbF9ub2RlcyhcIi5jb2xUYWIuY29zdFwiKSAlPiVcbiAgICAgICAgIGh0bWxfdGV4dCh0cmltID0gVClcbmBgYCJ9 -->
+<pre class="r"><code>daty &lt;- crossweb_page %&gt;%
+        html_nodes(&quot;.first.clearfix .num.fl&quot;) %&gt;%
+        html_text()
+
+dzien &lt;- crossweb_page %&gt;%
+         html_nodes(&quot;.first.clearfix .name.fl&quot;) %&gt;%
+         html_text()
+
+
+nazwy &lt;- crossweb_page %&gt;%
+         html_nodes(&quot;.colTab.title&quot;) %&gt;%
+         html_text(trim = TRUE) %&gt;%
+         gsub(&quot;  .*&quot;,&quot;&quot;, .) %&gt;%
+         str_replace_all(&#39;&quot;&#39;,&quot;&quot;)
+         
+
+
+miasto &lt;- crossweb_page %&gt;%
+          html_nodes(&quot;.colTab.city&quot;) %&gt;%
+          html_text(trim = T)
+
+
+typ &lt;- crossweb_page %&gt;%
+       html_nodes(&quot;.colTab.type&quot;) %&gt;%
+       html_text(trim = T)
+
+
+koszt &lt;- crossweb_page %&gt;%
+         html_nodes(&quot;.colTab.cost&quot;) %&gt;%
+         html_text(trim = T)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCg0KYGBge3IgcGFja2FnZXN9DQoNCmxpYnJhcnkocnZlc3QpDQpsaWJyYXJ5KCkNCg0KDQpgYGANCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCg0KYGBge3IgcGFja2FnZXN9DQpsaWJyYXJ5KHJ2ZXN0KQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KHN0cmluZ3IpDQpgYGANCg0KDQpgYGB7ciBwYWdlX2Rvd25sb2FkfQ0KDQp1cmwgPC0gImh0dHBzOi8vY3Jvc3N3ZWIucGwvd3lkYXJ6ZW5pYS8vIg0KDQoNCmNyb3Nzd2ViX3BhZ2U8LSByZWFkX2h0bWwodXJsKQ0KDQpgYGANCg0KDQpgYGB7ciBzY3JhcH0NCmRhdHkgPC0gY3Jvc3N3ZWJfcGFnZSAlPiUNCiAgICAgICAgaHRtbF9ub2RlcygiLmZpcnN0LmNsZWFyZml4IC5udW0uZmwiKSAlPiUNCiAgICAgICAgaHRtbF90ZXh0KCkNCg0KZHppZW4gPC0gY3Jvc3N3ZWJfcGFnZSAlPiUNCiAgICAgICAgIGh0bWxfbm9kZXMoIi5maXJzdC5jbGVhcmZpeCAubmFtZS5mbCIpICU+JQ0KICAgICAgICAgaHRtbF90ZXh0KCkNCg0KDQpuYXp3eSA8LSBjcm9zc3dlYl9wYWdlICU+JQ0KICAgICAgICAgaHRtbF9ub2RlcygiLmNvbFRhYi50aXRsZSIpICU+JQ0KICAgICAgICAgaHRtbF90ZXh0KHRyaW0gPSBUUlVFKSAlPiUNCiAgICAgICAgIGdzdWIoIiAgLioiLCIiLCAuKSAlPiUNCiAgICAgICAgIHN0cl9yZXBsYWNlX2FsbCgnIicsIiIpDQogICAgICAgICANCg0KDQptaWFzdG8gPC0gY3Jvc3N3ZWJfcGFnZSAlPiUNCiAgICAgICAgICBodG1sX25vZGVzKCIuY29sVGFiLmNpdHkiKSAlPiUNCiAgICAgICAgICBodG1sX3RleHQodHJpbSA9IFQpDQoNCg0KdHlwIDwtIGNyb3Nzd2ViX3BhZ2UgJT4lDQogICAgICAgaHRtbF9ub2RlcygiLmNvbFRhYi50eXBlIikgJT4lDQogICAgICAgaHRtbF90ZXh0KHRyaW0gPSBUKQ0KDQoNCmtvc3p0IDwtIGNyb3Nzd2ViX3BhZ2UgJT4lDQogICAgICAgICBodG1sX25vZGVzKCIuY29sVGFiLmNvc3QiKSAlPiUNCiAgICAgICAgIGh0bWxfdGV4dCh0cmltID0gVCkNCmBgYA0KDQoNCmBgYHtyIGRmfQ0KDQoNCg0KDQpgYGANCg0K</div>
 
 
 
