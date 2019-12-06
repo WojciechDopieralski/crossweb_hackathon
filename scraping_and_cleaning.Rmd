@@ -16,13 +16,13 @@ library(stringr)
 
 url <- "https://crossweb.pl/wydarzenia//"
 
-
 crossweb_page<- read_html(url)
 
 ```
 
 
 ```{r scrap}
+
 daty <- crossweb_page %>%
         html_nodes(".first.clearfix .num.fl") %>%
         html_text()
@@ -39,27 +39,29 @@ nazwy <- crossweb_page %>%
          str_replace_all('"',"")
          
 
-
 miasto <- crossweb_page %>%
           html_nodes(".colTab.city") %>%
           html_text(trim = T)
-
 
 typ <- crossweb_page %>%
        html_nodes(".colTab.type") %>%
        html_text(trim = T)
 
-
 koszt <- crossweb_page %>%
          html_nodes(".colTab.cost") %>%
          html_text(trim = T)
+
+
 ```
 
 
 ```{r df}
 
+cw_df <- data.frame(date = format(as.Date(daty, format = "%d.%m"),"%m/%d"), day = as.factor(dzien), event_name = nazwy, town = as.factor(miasto), type = as.factor(typ), cost = as.factor(koszt), stringsAsFactors = F)
 
 
+hackathon <- cw_df %>% 
+             filter(type == "Hackathon")
 
 ```
 
