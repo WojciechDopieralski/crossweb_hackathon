@@ -47,3 +47,6 @@ vignettes/*.pdf
 # pkgdown site
 docs/
 *.tgz
+
+#for google API
+googlesheets_token.rds

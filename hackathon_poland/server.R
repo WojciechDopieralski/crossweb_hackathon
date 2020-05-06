@@ -9,8 +9,13 @@ source("C:\\Users\\x\\Desktop\\Nauka\\studia\\uep\\WIGE_mgr\\Sem_8\\asi\\projekt
 shinyServer(function(input, output) {
     
     google_sheet_db <- 'https://docs.google.com/spreadsheets/d/1DoGbrQuIWRApfNm2_og4V5-WYL1LoHPahVsozMAQgfk/edit#gid=519553656'
-    gs4_auth(use_oob = T)
-    #sheet_write(data = test,ss = google_sheet_db, sheet = "current")    
+
+    token <- gs4_auth(cache = FALSE, ude_oob = TRUE)
+
+    saveRDS(token, file = "googlesheets_token.rds")
+
+    suppressMessages(gs4_auth(token = "googlesheets_token.rds"))
+    #sheet_write(data = test,ss = google_sheet_db, sheet = "current")
     
     liveish_data <- reactive({
         get_data()
