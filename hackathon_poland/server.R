@@ -2,57 +2,20 @@ library(shiny)
 library(DT)
 library(tidyverse)
 library(rvest)
-
-get_data <- function(x) {
-    url <- "https://crossweb.pl/wydarzenia//"
-    
-    crossweb_page<- read_html(url)
-    
-    
-    daty <- crossweb_page %>%
-        html_nodes(".first.clearfix .num.fl") %>%
-        html_text()
-    
-    dzien <- crossweb_page %>%
-        html_nodes(".first.clearfix .name.fl") %>%
-        html_text()
-    
-    
-    nazwy <- crossweb_page %>%
-        html_nodes(".colTab.title") %>%
-        html_text(trim = TRUE) %>%
-        gsub("  .*","", .) %>%
-        str_replace_all('"',"")
-    
-    
-    miasto <- crossweb_page %>%
-        html_nodes(".colTab.city") %>%
-        html_text(trim = T)
-    
-    typ <- crossweb_page %>%
-        html_nodes(".colTab.type") %>%
-        html_text(trim = T)
-    
-    koszt <- crossweb_page %>%
-        html_nodes(".colTab.cost") %>%
-        html_text(trim = T)
-    
-    cw_df <- data.frame(date = format(as.Date(daty, format = "%d.%m"),"%m/%d"), day = as.factor(dzien), event_name = nazwy, town = as.factor(miasto), type = as.factor(typ), cost = as.factor(koszt), stringsAsFactors = F)
-    
-    cw_df
-}
+#devtools::install_github("tidyverse/googlesheets4")
+library(googlesheets4)
+source("C:\\Users\\x\\Desktop\\Nauka\\studia\\uep\\WIGE_mgr\\Sem_8\\asi\\projekt\\it_projects\\hackathon_poland\\scrap_functions.R")
 
 shinyServer(function(input, output) {
-
-
+    
+    google_sheet_db <- 'https://docs.google.com/spreadsheets/d/1DoGbrQuIWRApfNm2_og4V5-WYL1LoHPahVsozMAQgfk/edit#gid=519553656'
+    gs4_auth(use_oob = T)
+    #sheet_write(data = test,ss = google_sheet_db, sheet = "current")    
     
     liveish_data <- reactive({
-        get_data()                
+        get_data()
     })
-    
-    
-
-    
+  
     output$table <- DT::renderDataTable(
                         DT::datatable(data <- liveish_data(), 
                                       rownames =  F,
@@ -62,7 +25,4 @@ shinyServer(function(input, output) {
                                       )
                         )
                     )
-    
-
-
 })
