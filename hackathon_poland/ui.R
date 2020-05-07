@@ -4,15 +4,14 @@ library(shinydashboard)
 
 shinyUI(
     dashboardPage(
-     
+      
         dashboardHeader(title = "IT events"),
       
         # Sidebar
         dashboardSidebar(
-
         ),
             dashboardBody(
-                dataTableOutput("table")
+                DT::dataTableOutput("table")
             )
     )
 )

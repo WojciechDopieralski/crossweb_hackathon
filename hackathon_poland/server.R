@@ -2,27 +2,34 @@ library(shiny)
 library(DT)
 library(tidyverse)
 library(rvest)
-#devtools::install_github("tidyverse/googlesheets4")
 library(googlesheets4)
-source("C:\\Users\\x\\Desktop\\Nauka\\studia\\uep\\WIGE_mgr\\Sem_8\\asi\\projekt\\it_projects\\hackathon_poland\\scrap_functions.R")
+source("scrap_functions.R", local = TRUE)
 
-shinyServer(function(input, output) {
-    
-    google_sheet_db <- 'https://docs.google.com/spreadsheets/d/1DoGbrQuIWRApfNm2_og4V5-WYL1LoHPahVsozMAQgfk/edit#gid=519553656'
+options(
+  gargle_oauth_email = "klojtek2@gmail.com",
+  gargle_oob_default = TRUE,
+  gargle_oauth_cache = ".secrets"
+)
 
-    token <- gs4_auth(cache = FALSE, ude_oob = TRUE)
+gs4_auth()
 
-    saveRDS(token, file = "googlesheets_token.rds")
-
-    suppressMessages(gs4_auth(token = "googlesheets_token.rds"))
-    #sheet_write(data = test,ss = google_sheet_db, sheet = "current")
-    
-    liveish_data <- reactive({
-        get_data()
-    })
+shinyServer(function(input, output, session) {
   
+    google_sheet_db <- 'https://docs.google.com/spreadsheets/d/1DoGbrQuIWRApfNm2_og4V5-WYL1LoHPahVsozMAQgfk/edit?usp=sharing'
+
+    scrap_data <- reactive({                   
+      invalidateLater(86400000, session)    
+      scrap_data <- get_data()
+      googlesheets4::sheet_write(data = scrap_data ,ss = google_sheet_db, sheet = "current")
+      scrap_data
+    })
+    
+    g_sheet_data <- reactive({
+      read_sheet(ss = google_sheet_db, sheet = "current")
+    })
+    
     output$table <- DT::renderDataTable(
-                        DT::datatable(data <- liveish_data(), 
+                        DT::datatable(data <- g_sheet_data(), 
                                       rownames =  F,
                                       class = 'cell-border stripe',
                                       options = list(
