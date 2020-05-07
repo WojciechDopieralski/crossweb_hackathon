@@ -5,8 +5,8 @@ account: widim22
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2249393
-bundleId: 3113332
+bundleId: 3113677
 url: https://widim22.shinyapps.io/it_events/
-when: 1588807571.44708
+when: 1588814017.59566
 asMultiple: FALSE
 asStatic: FALSE
